@@ -1,25 +1,23 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-int n[1000001] = { 1, 1, 0 };
+vector<bool> state(1000001, true);
+void sieve(int n){
+  state[1] = false;
+  for(int i = 2; i*i <= n; i++){
+    if(!state[i]) continue;
+    for(int j = i*i; j <= n; j += i)
+      state[j] = false;
+  }
+}
 
-int main() {
-	int min, max;
-
-	scanf("%d %d", &min, &max);
-	for (int i = 2; i <= max; i++) {
-		for (int j = 2; i*j <= max; j++) {
-			if (i * j % j == 0 && n[i * j] == 0) {
-				n[i * j] = 1;
-			}
-		}
-	}
-	for (int i = min; i <= max; i++) {
-		if (n[i] == 0) {
-			printf("%d\n", i);
-		}
-	}
-
-	return 0;
+int main(void){
+  ios::sync_with_stdio(0);
+  cin.tie(0);
+  int m, n;
+  cin >> m >> n;
+  sieve(n);
+  for(int i = m; i <= n; i++){
+    if(state[i]) cout << i << '\n';
+  }
 }

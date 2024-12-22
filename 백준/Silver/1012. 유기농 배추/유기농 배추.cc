@@ -22,8 +22,6 @@ int main(void){
       fill(vis[i], vis[i]+m, 0);
     }
 
-    // queue<pair<int,int>> Q;
-
     for(int i=0;i<k;i++){
       int x, y;
       cin >> x >> y;

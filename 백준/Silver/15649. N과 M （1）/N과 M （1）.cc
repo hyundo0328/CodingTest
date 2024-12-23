@@ -3,22 +3,26 @@ using namespace std;
 
 int n,m;
 int arr[9];
-bool isused[9];
+bool isUsed[9];
 
 void func(int k){
   if(k == m){
-    for(int i = 0; i < m; i++)
+    for(int i = 0; i < m; i++){
       cout << arr[i] << ' ';
+    }
     cout << '\n';
+    
     return;
   }
 
   for(int i = 1; i <= n; i++){
-    if(!isused[i]){
+    if(!isUsed[i]){
       arr[k] = i;
-      isused[i] = 1;
+      isUsed[i] = 1;
+
       func(k+1);
-      isused[i] = 0;
+
+      isUsed[i] = 0;
     }
   }
 }
@@ -26,6 +30,7 @@ void func(int k){
 int main(void){
   ios::sync_with_stdio(0);
   cin.tie(0);
+
   cin >> n >> m;
   func(0);
 }

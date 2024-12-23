@@ -1,36 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
+int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
-  int n;
 
+  int n;
   cin >> n;
 
-  for (int i = 0; i < n; i++) {
-    list<char> L = {};
-    string s;
-    auto p = L.begin();
+  for(int i=0;i<n;i++){
+    string str;
+    cin >> str;
 
-    cin >> s;
-    for (auto c : s) {
-      if (c == '<') {
-        if (p != L.begin()) p--;
-      }
-      else if (c == '>') {
-        if (p != L.end()) p++;
-      }
-      else if (c == '-') {
-        if (p != L.begin()) {
-          p--;
-          p = L.erase(p);
+    list<char> L;
+    auto cursor = L.begin();
+    
+    for (auto c:str){
+      if(c == '<'){
+        if(cursor != L.begin()) cursor--;
+      } else if (c == '>'){
+        if(cursor != L.end()) cursor++;
+      } else if (c == '-'){
+        if(cursor != L.begin()) {
+          cursor--;
+          cursor = L.erase(cursor);
         }
+      } else {
+        L.insert(cursor, c);
       }
-      else
-        L.insert(p, c);      
     }
-    for (auto c : L) cout << c;
-    cout << '\n';
+    
+    for(auto c:L) cout << c;
+    if(i != n-1){
+      cout << '\n';
+    }
   }
 }

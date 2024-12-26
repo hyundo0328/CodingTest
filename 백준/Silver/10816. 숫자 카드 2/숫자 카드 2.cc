@@ -22,6 +22,7 @@ int main(void){
   for(int i=0;i<m;i++){
     int tmp;
     cin >> tmp;
+    // cout << upper_bound(arr, arr+n, tmp)-lower_bound(arr, arr+n, tmp) << '\n';
     cout << upper_bound(vec.begin(),vec.end(),tmp)-lower_bound(vec.begin(),vec.end(),tmp) << '\n';
   }
 }

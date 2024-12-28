@@ -1,84 +1,72 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+string board[1001];
+int disJ[1001][1001];
+int disF[1001][1001];
+
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};
 
-string board[1002];
-int disJihun[1002][1002];
-int disFire[1002][1002];
-
-int r, c;
-
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  cin >> r >> c;
-  queue<pair<int,int>> Jihun;
-  queue<pair<int,int>> Fire;
+  int m, n;
+  cin >> n >> m;
 
-  for(int i = 0; i < r; i++){
-    fill(disJihun[i], disJihun[i]+c, -1);
-    fill(disFire[i], disFire[i]+c, -1);    
+  queue<pair<int,int>> Q_J;
+  queue<pair<int,int>> Q_F;
+
+  for(int i = 0; i < n; i++){
+    fill(disJ[i], disJ[i]+m, -1);
+    fill(disF[i], disF[i]+m, -1);    
   }
 
-  for(int i=0;i<r;i++){
+  for(int i=0;i<n;i++){
     cin >> board[i];
-    for(int j=0;j<c;j++){
+    for(int j=0;j<m;j++){
       if(board[i][j] == 'J'){
-        Jihun.push({i,j});
-        disJihun[i][j] = 0;
-      }
-      if(board[i][j] == 'F'){
-        Fire.push({i,j});
-        disFire[i][j] = 0;
+        disJ[i][j] = 0;
+        Q_J.push({i,j});
+      } else if (board[i][j] == 'F'){
+        disF[i][j] = 0;
+        Q_F.push({i,j});
       }
     }
   }
 
-  while(!Fire.empty()){
-    auto cur = Fire.front();
-    Fire.pop();    
+  while(!Q_F.empty()){
+    pair<int,int> cur = Q_F.front(); Q_F.pop();
+    for(int k=0;k<4;k++){
+      int nextX = cur.first + dx[k];
+      int nextY = cur.second + dy[k];
 
-    for(int i=0;i<4;i++){
-      int nx = cur.first + dx[i];
-      int ny = cur.second + dy[i];
+      if(nextX < 0 || nextY < 0 || nextX >= n || nextY >= m) continue;
+      if(disF[nextX][nextY] >= 0) continue;
+      if(board[nextX][nextY] == '#') continue;
 
-      if(nx < 0 || ny < 0 || nx >= r || ny >= c) {
-        continue;
-      }
-      if(disFire[nx][ny] >= 0 || board[nx][ny] == '#') {
-        continue;
-      }
-
-      disFire[nx][ny] = disFire[cur.first][cur.second] + 1;
-      Fire.push({nx,ny});
+      disF[nextX][nextY] = disF[cur.first][cur.second]+1;
+      Q_F.push({nextX, nextY});
     }
   }
-  
-  while(!Jihun.empty()){
-    auto cur = Jihun.front();
-    Jihun.pop();    
 
-    for(int i=0;i<4;i++){
-      int nx = cur.first + dx[i];
-      int ny = cur.second + dy[i];
+  while(!Q_J.empty()){
+    pair<int,int> cur = Q_J.front(); Q_J.pop();
+    for(int k=0;k<4;k++){
+      int nextX = cur.first + dx[k];
+      int nextY = cur.second + dy[k];
 
-      if(nx < 0 || ny < 0 || nx >= r || ny >= c) {
-        cout << disJihun[cur.first][cur.second]+1; 
+      if(nextX < 0 || nextY < 0 || nextX >= n || nextY >= m) {
+        cout << disJ[cur.first][cur.second]+1;
         return 0;
       }
-      if(disJihun[cur.first][cur.second]+1 >= disFire[nx][ny] && disFire[nx][ny] != -1) {
-        continue;
-      }
-      if(disJihun[nx][ny] >= 0 || board[nx][ny] == '#') {
-        continue;
-      }
+      if(disJ[cur.first][cur.second]+1 >= disF[nextX][nextY] && disF[nextX][nextY] != -1) continue;
+      if(disJ[nextX][nextY] >= 0) continue;
+      if(board[nextX][nextY] == '#') continue;
 
-      
-      disJihun[nx][ny] = disJihun[cur.first][cur.second] + 1;
-      Jihun.push({nx,ny});
+      disJ[nextX][nextY] = disJ[cur.first][cur.second]+1;
+      Q_J.push({nextX, nextY});
     }
   }
 

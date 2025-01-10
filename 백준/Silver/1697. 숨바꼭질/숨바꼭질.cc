@@ -28,7 +28,4 @@ int main(void){
   }
 
   cout << dis[k];
-
-  int count = 0;
-  
 }

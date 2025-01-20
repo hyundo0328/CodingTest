@@ -1,43 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
-  
+
   int n;
   cin >> n;
 
   queue<int> q;
-  for(int i=0;i<n;i++){
-    string command;
-    cin >> command;
-    if(command == "push"){
+  while(n-- > 0){
+    string s;
+    cin >> s;
+
+    if(s == "push"){
       int num;
       cin >> num;
+
       q.push(num);
-    } else if (command == "pop"){
+    } else if (s == "pop"){
       if(q.empty()){
         cout << -1 << '\n';
       } else {
         cout << q.front() << '\n';
         q.pop();
       }
-    } else if (command == "front"){
+    } else if (s == "front"){
       if(q.empty()){
         cout << -1 << '\n';
       } else {
         cout << q.front() << '\n';
       }
-    } else if (command == "back"){
+    } else if (s == "back"){
       if(q.empty()){
         cout << -1 << '\n';
       } else {
         cout << q.back() << '\n';
       }
-    } else if (command == "size"){
+    } else if (s == "size"){
       cout << q.size() << '\n';
-    } else if (command == "empty"){
+    } else if (s == "empty"){
       if(q.empty()){
         cout << 1 << '\n';
       } else {
@@ -45,6 +47,4 @@ int main(void){
       }
     }
   }
-
-  return 0;
 }

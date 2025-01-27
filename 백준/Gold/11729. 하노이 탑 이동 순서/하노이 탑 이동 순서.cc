@@ -1,24 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void func(int a, int b, int n){
-  if(n == 1){
-    cout << a << ' ' << b << '\n';
-    return;
-  }
-  
-  func(a, 6-a-b, n-1);
-  cout << a << ' ' << b << '\n';
-  func(6-a-b, b, n-1);
+vector<pair<int,int>> answer;
+int cnt = 0;
+
+void hanoi(int n, int from, int to, int aux) {
+    if (n == 1) {
+      cnt++;
+      answer.push_back({from, to});
+      // cout << from << " " << to << '\n';
+      return;
+    }
+
+    hanoi(n - 1, from, aux, to);
+    cnt++;
+    answer.push_back({from, to});
+    // cout << from << " " << to << '\n';
+    hanoi(n - 1, aux, to, from);
 }
 
-int main(void){
-  ios::sync_with_stdio(0);
-  cin.tie(0);
+int main() {
+    int n;
+    cin >> n;
+    
+    hanoi(n, 1, 3, 2);
 
-  int k;
-  cin >> k;
-
-  cout << (1<<k) - 1 << '\n';
-  func(1, 3, k);
+    cout << cnt << '\n';
+    for(auto ans:answer){
+      cout << ans.first << " " << ans.second << '\n';
+    }
+    
+    return 0;
 }

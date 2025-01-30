@@ -30,23 +30,25 @@ int main(void){
 	
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
-      if (board[i][j] == 1 || vis[i][j] == 1)
-        continue;
+      if (board[i][j] == 1 || vis[i][j] == 1) continue;
+
       queue<pair<int, int>> Q;
       vis[i][j] = 1;
       Q.push({ i, j });
+
       int width = 1;
       count++;
       while (!Q.empty()) {
         auto cur = Q.front();
         Q.pop();
+
         for (int dir = 0; dir < 4; dir++) {
           int nx = cur.first + dx[dir];
           int ny = cur.second + dy[dir];
-          if (nx < 0 || nx >= m || ny < 0 || ny >= n)
-            continue;
-          if (board[nx][ny] == 1 || vis[nx][ny] == 1)
-            continue;
+
+          if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+          if (board[nx][ny] == 1 || vis[nx][ny] == 1) continue;
+          
           Q.push({ nx, ny });
           vis[nx][ny] = 1;
           width++;
@@ -55,11 +57,13 @@ int main(void){
       ans.push_back(width);
     }
   }
+    
   sort(ans.begin(), ans.end());
 
   cout << count << '\n';
-  for (int i : ans)
+  for (int i : ans){
     cout << i << ' '; 
+  }
 
   return 0;
 }

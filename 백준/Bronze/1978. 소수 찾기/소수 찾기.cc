@@ -1,23 +1,30 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-int main() {
-	int n, num, count = 0;
+int isPrime(int n){
+  if(n==1) return 0;
+  for(int j=2;j*j<=n;j++){
+    if(n%j == 0){
+      return 0;
+    }
+  }
 
-	scanf("%d", &n);
-	for (int i = 0; i < n; i++) {
-		num = 0;
-		scanf("%d", &num);
-		for (int j = 2; j <= num; j++) {
-			if (num == j) {
-				count++;
-			}
-			if (num % j == 0) {
-				break;
-			}
-		}
-	}
-	printf("%d", count);
+  return 1;
+}
 
-	return 0;
+int main(){
+  ios::sync_with_stdio(0);
+  cin.tie(0);
+  
+  int num, count = 0;
+  cin >> num;
+
+  for(int i=0;i<num;i++){
+    int n;
+    cin >> n;
+    count += isPrime(n);
+  }
+  cout << count;
+
+  return 0;
 }

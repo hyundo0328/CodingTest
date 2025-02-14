@@ -1,20 +1,21 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-using ll = long long;
+long long a, b, c, k;
 
-ll POW(ll a, ll b, ll m){
-  if(b==1) return a % m;
-  ll val = POW(a, b/2, m);
-  val = val * val % m;
-  if(b%2 == 0) return val;
-  return val * a % m;
+long long power(long long b) {
+	if (b == 0) return 1;
+	if (b == 1) return a % c;
+	
+	k = power(b / 2) % c;
+	if (b % 2 == 0) return k * k % c;
+    
+	return k * k % c * a % c;
 }
 
-int main(void){
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  ll a,b,c;
-  cin >> a >> b >> c;
-  cout << POW(a,b,c);
+int main(void) {
+	cin >> a >> b >> c; 
+	cout << power(b);
+
+	return 0;
 }

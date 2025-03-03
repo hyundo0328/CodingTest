@@ -1,31 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int n, ans = 0;
+
 int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int n;
   cin >> n;
-
-  int count = 0;
-  for(int i=0;i<n;i++){
-    string s;
-    cin >> s;
-
-    bool isValid = true;
-    stack<char> c_stack;
-
-    for(auto c:s){
-      if (!c_stack.empty() && c_stack.top() == c) {
-        c_stack.pop();
-      } else {
-        c_stack.push(c);
-      }
+  while (n--) {
+    string a;
+    cin >> a;
+      
+    stack<int> S;
+    for (auto c : a) {
+      if (!S.empty() && S.top() == c) S.pop();
+      else S.push(c);
     }
-    if(c_stack.empty()) count++;
+      
+    if (S.empty()) ans++;
   }
-  cout << count;
-  
-  return 0;
+  cout << ans << "\n";
 }

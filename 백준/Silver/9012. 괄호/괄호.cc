@@ -4,37 +4,32 @@ using namespace std;
 int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
-
+    
   int n;
   cin >> n;
-
-  for(int i=0;i<n;i++){
-    string s;
-    cin >> s;
-
-    stack<char> c_stack;
-    bool inValid = true;
-    for(auto c:s) {
-      if(c == '(') {
-        c_stack.push(c);
-      } else {
-        if(c_stack.empty()) {
-          inValid = false;
+    
+  while (n--) {
+    string a;
+    cin >> a;
+      
+    stack<char> s;
+    bool is_valid = true;
+      
+    for (auto c : a) {
+      if (c == '(')
+        s.push(c);
+      else { // c == ')'
+        if (s.empty() || s.top() != '(') {
+          is_valid = false;
           break;
-        } else {
-          c_stack.pop();
         }
+        s.pop();
       }
     }
-
-    if (!c_stack.empty()) inValid = false;
-    if (inValid) {
-      cout << "YES\n";
-    } else {
-      cout << "NO\n";
-    }
+      
+    if (!s.empty()) is_valid = false;
+    
+    if (is_valid) cout << "YES\n";
+    else cout << "NO\n";
   }
-  
-  
-  return 0;
 }

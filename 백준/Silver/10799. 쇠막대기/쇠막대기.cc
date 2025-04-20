@@ -1,31 +1,25 @@
 #include <bits/stdc++.h>
-typedef long long ll;
 using namespace std;
 
-string s;
-ll ans = 0;
-
-stack<char> st;
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  cin >> s;
-  int len = s.length();
-  for (int i=0; i<len; i++) {
-    if (s[i]=='(')
-      st.push(s[i]);
-    else {
-      if (s[i-1] == '(') {
-        st.pop();
-        ans+=st.size();
-      } else {
-        st.pop();
-        ans++;
-      }
-    }
-  }
-  cout << ans << "\n";
-  
-  return 0;
+  stack<int> s;
+	string str;
+	cin >> str;
+	
+	int cnt = 0;
+	for (int i=0; i<str.size(); i++){
+		if (str[i] == '(' && str[i+1] == ')'){
+			cnt += s.size();
+			i++;
+		} else if (str[i] == '('){
+			s.push(i);
+		} else if (str[i] == ')'){
+			cnt++;
+			s.pop();
+		}
+	}
+	cout << cnt;
 }

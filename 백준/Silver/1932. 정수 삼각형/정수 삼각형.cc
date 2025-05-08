@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int d[502][502];
-int sum[502][502];
+int num[502][502];
+int dp[502][502];
 
 int main(){
   ios::sync_with_stdio(0);
@@ -10,30 +10,15 @@ int main(){
 
   int n;
   cin >> n;
+  
+  for(int i=1;i<=n;i++)
+    for(int j=1;j<=i;j++)
+      cin >> num[i][j];
 
-  for(int i=1;i<=n;i++){
-    for(int j=1;j<=i;j++){
-      int x;
-      cin >> x;
+  dp[1][1] = num[1][1];
+  for(int i=2; i<=n; i++)
+    for(int j=1; j<=i; j++)
+      dp[i][j] = max(dp[i-1][j-1],dp[i-1][j]) + num[i][j];
 
-      if(i == 1) {
-        d[i][j] = x;
-        continue;
-      }
-      
-      if(i > 1 && j == 1){
-        d[i][j] = x + d[i-1][j];
-        continue;
-      }
-
-      if(i > 1 && i == j){
-        d[i][j] = x + d[i-1][j-1];
-        continue;
-      }
-
-      d[i][j] = x + max(d[i-1][j-1], d[i-1][j]);
-    }
-  }
-
-  cout << *max_element(d[n]+1, d[n]+n+ 1);
+  cout << *max_element(dp[n]+1, dp[n]+n+1);
 }

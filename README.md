@@ -1,2 +1,2 @@
-# Backjoon_C
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+# Backjoon, Programmers 코테 준비
+C++, MySQL 사용 중 (Java도 추가로 학습할 예정)

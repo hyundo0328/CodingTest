@@ -1,26 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int d[1000005];
-
 int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int t;
-  cin >> t;
-  unordered_set<string> s;
-  while(t-- > 0){
-    string name, type;
-    cin >> name >> type;
-    if(type == "enter"){
-      s.insert(name);
-    } else {
-      s.erase(name);
-    }
+  int n;
+  cin >> n;
+
+  unordered_set<string> us;
+  for(int i=0; i<n; i++){
+    string name, log;
+    cin >> name >> log;
+
+    if(log == "enter") us.insert(name);
+    else us.erase(name);
   }
   
-  vector<string> ans(s.begin(), s.end());
+
+  vector<string> ans(us.begin(), us.end());
   sort(ans.begin(), ans.end(), greater<string>());
+  
   for(auto x : ans) cout << x << '\n';
 }

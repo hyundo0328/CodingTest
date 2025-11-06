@@ -1,24 +1,20 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-int main(){
-    int a, b, c, sum;
-    int count[10] = {0,0,0,0,0,0,0,0,0,0};
-    
-    scanf("%d", &a);
-    scanf("%d", &b);
-    scanf("%d", &c);
-    sum = a*b*c;
-    
-    int i=0;
-    while(sum>0){
-        count[sum%10] += 1;
-        sum /= 10;
-        i++;
-    }
-    
-    for(int i=0;i<10;i++){
-        printf("%d\n",count[i]);
-    }
-    
-    return 0;
+int cnt[10];
+
+int main(void)
+{
+  ios::sync_with_stdio(0);
+  cin.tie(0);
+
+  int a, b, c;
+  cin >> a >> b >> c;
+
+  long long total = a*b*c;
+  string total_st = to_string(total);
+
+  for(int i=0; i<total_st.length(); i++) cnt[total_st.at(i) - '0']++;
+  for(int count:cnt) cout << count << '\n';
+
 }

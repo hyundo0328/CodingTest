@@ -2,13 +2,12 @@
 using namespace std;
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+  ios::sync_with_stdio(0);
+  cin.tie(0);
 
-	int n;
-	cin >> n;
-
-  for(int i=0;i<n;i++){
+  int N;
+  cin >> N;
+  while (N--) {
     int a[26] = {};
     string s1, s2;
     cin >> s1 >> s2;
@@ -24,6 +23,4 @@ int main() {
     if(isPossible) cout << "Possible\n";
     else cout << "Impossible\n";
   }
-	
-  return 0;
 }

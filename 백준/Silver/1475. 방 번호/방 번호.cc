@@ -1,7 +1,8 @@
-#include <iostream> 
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
- 
+
+int cnt[10];
+
 int main(void)
 {
   ios::sync_with_stdio(0);
@@ -9,23 +10,19 @@ int main(void)
 
   int n;
   cin >> n;
-  int count = 0;
-  int num[10] = {0,};
 
   while(n > 0){
-    num[n%10]++;
-    n = n/10;
-  }
-
-  for(int i=0;i<10;i++){
-    if(i==6 || i==9){
-      continue;
+    int num = n%10;
+    
+    if(num == 6 || num == 9){
+      if(cnt[6] >= cnt[9]) cnt[9]++;
+      else cnt[6]++;
+    } else {
+      cnt[num]++;
     }
-    count = max(count,num[i]);
+
+    n /= 10;
   }
 
-  count = max(count, (num[6]+num[9]+1)/2);
-  cout << count;
-  
-  return 0;
+  cout << *max_element(cnt, cnt+10);
 }

@@ -2,25 +2,25 @@
 using namespace std;
 
 int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
-  int N;
-  cin >> N;
-  while (N--) {
-    int a[26] = {};
-    string s1, s2;
-    cin >> s1 >> s2;
+  int n;
+  cin >> n;
 
-    for (auto c : s1) a[c-'a']++;
-    for (auto c : s2) a[c-'a']--;
+  for(int i=0; i<n; i++){
+    string a, b;
+    cin >> a >> b;
 
-    bool isPossible = true;
-    for (int i : a){
-      if (i != 0) isPossible = false;
-    }
+    int check[26] = {};
 
-    if(isPossible) cout << "Possible\n";
-    else cout << "Impossible\n";
+    for(auto c:a) check[c-'a']++;
+    for(auto c:b) check[c-'a']--;
+
+    bool flag = false;
+    for(int n:check) if(n != 0) flag = true;
+
+    flag ? cout << "Impossible\n" : cout << "Possible\n";
   }
+
 }

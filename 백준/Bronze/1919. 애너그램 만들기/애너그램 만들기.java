@@ -10,20 +10,14 @@ public class Main {
     String str1 = br.readLine();
     String str2 = br.readLine();
 
-    int[] alphabet = new int[26];
+    int[] check = new int[26];
 
-    for(int i=0; i<str1.length(); i++){
-      alphabet[str1.charAt(i)-'a']++;
-    }
-    for(int i=0; i<str2.length(); i++){
-      alphabet[str2.charAt(i)-'a']--;
-    }
+    for(int i=0; i<str1.length(); i++) check[str1.charAt(i) - 'a']++;
+    for(int i=0; i<str2.length(); i++) check[str2.charAt(i) - 'a']--;
 
     int answer = 0;
-    for(int i=0; i<26; i++){
-      answer += Math.abs(alphabet[i]);
-    }
-
+    for(int i=0; i<26; i++) answer += Math.abs(check[i]);
+    
     System.out.println(answer);
   }
 }

@@ -1,27 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
 	int n;
-	cin >> n;
+  cin >> n;
 
-  vector<int>num(n);
-  for(auto& i:num){
-    cin >> i;
+  vector<int> vec;
+  for(int i=0; i<n; i++){
+    int num;
+    cin >> num;
+    vec.push_back(num);
   }
 
   int v;
   cin >> v;
 
-  int count = 0;
-  for(int i=0;i<num.size(); i++){
-    if(num[i] == v) count++;
-  }
-  cout << count;
-	
-  return 0;
+  cout << count(vec.begin(), vec.end(), v);
 }

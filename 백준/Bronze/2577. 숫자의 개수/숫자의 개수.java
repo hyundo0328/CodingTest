@@ -4,27 +4,19 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    Long num = 0L;
-    Long a, b, c;
-    int[] numList = new int[10];
+        int a = Integer.parseInt(br.readLine());
+        int b = Integer.parseInt(br.readLine());
+        int c = Integer.parseInt(br.readLine());
+        long total = a*b*c;
+        String total_st = String.valueOf(total);
 
-    a = Long.valueOf(br.readLine());
-    b = Long.valueOf(br.readLine());
-    c = Long.valueOf(br.readLine());
+        int[] cnt = new int[10];
 
-    num = a*b*c;
-
-    while(num > 0){
-      numList[(int) (num%10)]++;
-
-      num /= 10;
+        for(int i=0; i<total_st.length(); i++) cnt[total_st.charAt(i) - '0']++;
+        for(int count:cnt) System.out.println(count);
     }
 
-    for(int i:numList){
-      System.out.println(i);
-    }
-  }
 }

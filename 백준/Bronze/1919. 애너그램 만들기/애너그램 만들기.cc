@@ -1,29 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int check[26];
+
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	int n[26] = {0,};
+  string a, b;
+  cin >> a >> b;
+
+  for(auto c:a) check[c-'a']++;
+  for(auto c:b) check[c-'a']--;
 
   int count = 0;
-  string a, b;
-  cin >> a;
-  for(auto i:a){
-    n[i-'a']++;
-    count++;
-  }
-  cin >> b;
-  for(auto i:b){
-    if(n[i-'a'] != 0){
-      n[i-'a']--;
-      count--;
-    } else {
-      count++;
-    }
-  }
+  for(int ch:check) count += abs(ch);
+
   cout << count;
-	
-  return 0;
 }

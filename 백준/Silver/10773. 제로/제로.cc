@@ -5,24 +5,21 @@ int main(void){
   ios::sync_with_stdio(0);
   cin.tie(0);
   
-  int n;
-  cin >> n;
-  int count = 0;
+  int k;
+  cin >> k;
 
   stack<int> s;
-  for(int i=0;i<n;i++){
-    int num;
-    cin >> num;
+  while(k--){
+    int num; cin >> num;
 
-    if(num != 0){
-      s.push(num);
-      count += num;
-    } else {
-      count -= s.top();
-      s.pop();
-    }
+    num != 0 ? s.push(num) : s.pop();
   }
-  cout << count;
 
-  return 0;
+  int sum = 0;
+  while(!s.empty()){
+    sum += s.top();
+    s.pop();
+  }
+
+  cout << sum;
 }

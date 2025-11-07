@@ -1,25 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
+int main(void){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  queue<int> q;
-
   int n;
   cin >> n;
+  if(n == 1){
+    cout << 1;
+    return 0;
+  }
 
-  for(int i=1;i<=n;i++){
+  queue<int> q;
+  for(int i=1; i<=n; i++){
     q.push(i);
   }
 
-  while(q.size() != 1){
+  while(q.size() > 1){
     q.pop();
-    int tmp = q.front();
+    int num = q.front(); 
     q.pop();
-    q.push(tmp);
+    q.push(num);
   }
-
   cout << q.front();
+
+  return 0;
 }

@@ -13,11 +13,8 @@ public class Main {
     for(int i=0; i<num; i++){
       int n = Integer.parseInt(br.readLine());
 
-      if(n == 0){
-        stack.pop();
-      } else {
-        stack.push(n);
-      }
+      if(n == 0) stack.pop();
+      else stack.push(n);
     }
 
     int sum = 0;

@@ -23,21 +23,11 @@ int main(void){
         cout << s.top() << '\n';
         s.pop();
       }
-    } else if (command == "top"){
-      if(s.empty()){
-        cout << -1 << '\n';
-      } else {
-        cout << s.top() << '\n';
-      }
-    } else if (command == "size"){
-      cout << s.size() << '\n';
-    } else if (command == "empty"){
-      if(s.empty()){
-        cout << 1 << '\n';
-      } else {
-        cout << 0 << '\n';
-      }
     }
+    else if (command == "top") s.empty() ? cout << -1 << '\n' : cout << s.top() << '\n';
+    else if (command == "size") cout << s.size() << '\n';
+    else if (command == "empty") s.empty() ? cout << 1 << '\n' : cout << 0 << '\n';
+
   }
 
   return 0;

@@ -5,31 +5,34 @@ int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  deque<int> dq;
   int n, m;
   cin >> n >> m;
-  for(int i=1;i<=n;i++){
-    dq.push_back(i);
-  }
+
+  deque<int> dq;
+  for(int i=1; i<=n; i++)  dq.push_back(i);
 
   int count = 0;
-  for(int i=0;i<m;i++){
-    int num;
-    cin >> num;
+  while(m--){
+    int num; cin >> num;
 
     int idx = find(dq.begin(), dq.end(), num) - dq.begin();
-    while(dq.front() != num){
-      if (idx < dq.size() - idx) { 
-        dq.push_back(dq.front());
-        dq.pop_front();
+    if(idx <= dq.size()/2){
+      while(dq.at(0) != num){
+        int tmp = dq.front(); dq.pop_front();
+        dq.push_back(tmp);
+        count++;
       }
-      else {
-        dq.push_front(dq.back());
-        dq.pop_back();
+      dq.pop_front();
+    } else {
+      while(dq.at(0) != num){
+        int tmp = dq.back(); dq.pop_back();
+        dq.push_front(tmp);
+        count++;
       }
-      count++;
+      dq.pop_front();
     }
-    dq.pop_front();
   }
+
   cout << count;
+  
 }

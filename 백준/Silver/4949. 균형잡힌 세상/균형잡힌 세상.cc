@@ -6,51 +6,32 @@ int main(void) {
   cin.tie(0);
 
   while(true){
-    string s;
-    getline(cin, s);
+    string str;
+    getline(cin, str);
 
-    if(s == ".") break;
+    if(str == ".") break;
+    stack<char> s;
 
-    stack<char> c_stack;
-    bool isValid = true;
-    for(auto c : s){
-      if(c == '(' || c == '[') {
-        c_stack.push(c);
-      } else if (c == ')') {
-        if(c_stack.empty()) {
-          isValid = false;
+    bool flag = false;
+    for(char c:str){
+      if(c == '(' || c == '[') s.push(c);
+      else if(c == ')'){
+        if(s.empty() || s.top() != '('){
+          flag = true;
           break;
         }
-        if (c_stack.top() == '(') {
-          c_stack.pop();
-          continue;
-        } else {
-          isValid = false;
+        s.pop();
+      } else if(c == ']'){
+        if(s.empty() || s.top() != '['){
+          flag = true;
           break;
         }
-      } else if (c == ']') {
-        if(c_stack.empty()) {
-          isValid = false;
-          break;
-        }
-        if (c_stack.top() == '[') {
-          c_stack.pop();
-          continue;
-        } else {
-          isValid = false;
-          break;
-        }
+        s.pop();
       }
     }
-    if(!c_stack.empty()){
-      isValid = false;
-    }
-    if(isValid) {
-      cout << "yes\n";
-    } else {
-      cout << "no\n";
-    }
+
+    if(!s.empty()) flag = true;
+    flag ? cout << "no\n" : cout << "yes\n";
   }
-  
-  return 0;
+
 }

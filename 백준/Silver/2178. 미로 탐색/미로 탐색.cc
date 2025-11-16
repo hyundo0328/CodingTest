@@ -1,44 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+int board[102][102];
+int dis[102][102];
+
+int main(void){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
   int n, m;
   cin >> n >> m;
 
-  int board[502][502];
-  int dis[502][502];
-
-  int dx[4] = {1,0,-1,0};
-  int dy[4] = {0,1,0,-1};
-
-  for(int i=0;i<n;i++){
-    string tmp;
-    cin >> tmp;
-    for(int j=0;j<m;j++){
-      board[i][j] = tmp[j] - '0';
-    }
+  for(int i=0; i<n; i++){
+    string str; cin >> str;
+    for(int j=0; j<m; j++) board[i][j] = str.at(j) - '0';
   }
 
-  for(int i = 0; i < n; i++) fill(dis[i],dis[i]+m,-1);
-
-  queue<pair<int,int>> Q;
   dis[0][0] = 1;
-  Q.push({0,0});
+  queue<pair<int, int>> q;
+  q.push({0,0});
 
-  while(!Q.empty()){
-    pair<int,int> cur = Q.front(); Q.pop();
-    for(int k=0;k<4;k++){
-      int nextX = cur.first + dx[k];
-      int nextY = cur.second + dy[k];
+  while(!q.empty()){
+    auto cur = q.front(); q.pop();
 
-      if(nextX < 0 || nextY < 0 || nextX >= n || nextY >= m) continue;
-      if(board[nextX][nextY] == 0 || dis[nextX][nextY] != -1) continue;
+    for(int dir=0; dir<4; dir++){
+      int nx = cur.first + dx[dir];
+      int ny = cur.second + dy[dir];
 
-      dis[nextX][nextY] = dis[cur.first][cur.second]+1;
-      Q.push({nextX, nextY});
+      if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+      if(board[nx][ny] == 0 || dis[nx][ny] != 0) continue;
+      if(dis[nx][ny] >= dis[cur.first][cur.second] + 1) continue;
+
+      dis[nx][ny] = dis[cur.first][cur.second] + 1;
+      q.push({nx, ny});
     }
   }
 

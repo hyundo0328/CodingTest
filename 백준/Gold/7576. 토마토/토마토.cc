@@ -1,11 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int board[1001][1001];
-int dis[1001][1001];
-
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};
+int board[1002][1002];
+int dis[1002][1002];
 
 int main(){
   ios::sync_with_stdio(0);
@@ -14,45 +13,54 @@ int main(){
   int m, n;
   cin >> m >> n;
 
-  queue<pair<int,int>> Q;
-
-  for(int i=0;i<n;i++){
-    for(int j=0;j<m;j++){
+  queue<pair<int,int>> q;
+  for(int i=0; i<n; i++){
+    fill(dis[i], dis[i]+m, -1);
+    for(int j=0; j<m; j++){
       cin >> board[i][j];
-      if(board[i][j] == 1){
-        Q.push({i,j});
+      if(board[i][j] == 1) {
         dis[i][j] = 0;
+        q.push({i,j});
       }
-      if(board[i][j] == 0)
-        dis[i][j] = -1;
     }
   }
 
-  while(!Q.empty()){
-    pair<int,int> cur = Q.front(); Q.pop();
-    for(int k=0;k<4;k++){
-      int nextX = cur.first + dx[k];
-      int nextY = cur.second + dy[k];
+  while(!q.empty()){
+    auto cur = q.front(); q.pop();
 
-      if(nextX < 0 || nextY < 0 || nextX >= n || nextY >= m) continue;
-      if(dis[nextX][nextY] >= 0) {
-        continue;
-      }
+    for(int i=0; i<4; i++){
+      int nx = cur.first + dx[i];
+      int ny = cur.second + dy[i];
 
-      dis[nextX][nextY] = dis[cur.first][cur.second]+1;
-      Q.push({nextX, nextY});
+      if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+      if(board[nx][ny] == -1) continue;
+      if(dis[nx][ny] != -1 || dis[nx][ny] > dis[cur.first][cur.second] + 1) continue;
+
+      q.push({nx, ny});
+      dis[nx][ny] = dis[cur.first][cur.second]+1;
     }
   }
 
-  int max_day = 0;
-  for(int i=0;i<n;i++){
-    for(int j=0;j<m;j++){
-      if(dis[i][j] == -1){
+  // for(int i=0; i<n; i++){
+  //   for(int j=0; j<m; j++){
+  //     cout << dis[i][j] << " ";
+  //   }
+  //   cout << '\n';
+  // }
+
+  int mx_day = 0;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<m; j++){
+      if(board[i][j] == 0 && dis[i][j] == -1){
         cout << -1;
         return 0;
       }
-      max_day = max(max_day, dis[i][j]);
+
+      mx_day = max(mx_day, dis[i][j]);
     }
   }
-  cout << max_day;
+
+  cout << mx_day;
+
+  return 0;
 }

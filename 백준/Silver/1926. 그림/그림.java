@@ -7,77 +7,69 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-  public static int n;
-  public static int m;
-  public static final int[] dx = {1,0,-1,0};
-  public static final int[] dy = {0,1,0,-1};
-  public static int[][] board = new int[502][502];
-  public static boolean[][] vis = new boolean[502][502];
+    public static int n;
+    public static int m;
+    public static final int[] dx = {1,0,-1,0};
+    public static final int[] dy = {0,1,0,-1};
+    public static int[][] board = new int[502][502];
+    public static boolean[][] vis = new boolean[502][502];
+    public static int count = 0;
+    public static int max = 0;
 
-  private static class Pair{
-    int x;
-    int y;
-    Pair(int x, int y){
-      this.x = x;
-      this.y = y;
-    }
-  }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-  public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    StringTokenizer st = new StringTokenizer(br.readLine());
+        for(int i=0; i<n; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j=0; j<m; j++) board[i][j] = Integer.parseInt(st.nextToken());
+        }
 
-    n = Integer.parseInt(st.nextToken());
-    m = Integer.parseInt(st.nextToken());
+        width();
 
-    for(int i=0; i<n; i++){
-      st = new StringTokenizer(br.readLine());
-      for(int j=0; j<m; j++){
-        board[i][j] = Integer.parseInt(st.nextToken());
-      }
+        System.out.println(count);
+        System.out.println(max);
     }
 
-    int count = 0;
-    int max = 0;
-    for(int i=0; i<n; i++){
-      for(int j=0; j<m; j++){
-        if(board[i][j] == 0 || vis[i][j]) continue;
+    public static void width(){
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(board[i][j] == 0 || vis[i][j]) continue;
 
-        count++;
-        vis[i][j] = true;
+                count++;
+                vis[i][j] = true;
+                int wid = bfs(i, j);
 
-        int width = bfs(i, j);
-
-        max = Math.max(max, width);
-      }
+                max = Math.max(max, wid);
+            }
+        }
     }
 
-    System.out.println(count);
-    System.out.println(max);
-  }
+    public static int bfs(int x, int y){
+        int tmp = 1;
+        Queue<int []> queue = new LinkedList<>();
+        queue.add(new int[]{x, y});
 
-  public static int bfs(int x, int y){
-    Queue<Pair> Q = new LinkedList<>();
-    Q.add(new Pair(x, y));
+        while(!queue.isEmpty()){
+            int[] cur = queue.poll();
 
-    int width = 0;
-    while(!Q.isEmpty()){
-      Pair cur = Q.peek(); Q.poll();
+            for(int dir=0; dir<4; dir++){
+                int nx = cur[0] + dx[dir];
+                int ny = cur[1] + dy[dir];
 
-      for(int k=0; k<4; k++){
-        int nxtX = cur.x + dx[k];
-        int nxtY = cur.y + dy[k];
+                if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+                if(board[nx][ny] == 0 || vis[nx][ny]) continue;
 
-        if(nxtX < 0 || nxtY < 0 || nxtX > n || nxtY > m) continue;
-        if(board[nxtX][nxtY] == 0 || vis[nxtX][nxtY]) continue;
+                queue.add(new int[]{nx, ny});
+                vis[nx][ny] = true;
+                tmp++;
+            }
+        }
 
-        vis[nxtX][nxtY] = true;
-        Q.add(new Pair(nxtX, nxtY));
-        width++;
-      }
+        return tmp;
     }
-    width++;
 
-    return width;
-  }
+    
 }

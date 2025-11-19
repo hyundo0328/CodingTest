@@ -7,52 +7,43 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-  public static final int[] dx = {1,0,-1,0};
-  public static final int[] dy = {0,1,0,-1};
-  public static int[][] board = new int[102][102];
-  public static int[][] dis = new int[102][102];
+    public static final int[] dx = {1,0,-1,0};
+    public static final int[] dy = {0,1,0,-1};
+    public static int[][] board = new int[102][102];
+    public static int[][] dis = new int[102][102];
 
-  private static class Pair{
-    int x;
-    int y;
-    Pair(int x, int y){
-      this.x = x;
-      this.y = y;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        for(int i=0; i<n; i++){
+            String str = br.readLine();
+            for(int j=0; j<m; j++) {
+                board[i][j] = str.charAt(j) - '0';
+            }
+        }
+
+        Queue<int []> queue = new LinkedList<>();
+        queue.add(new int[]{0,0});
+        dis[0][0] = 1;
+
+        while(!queue.isEmpty()){
+            int[] cur = queue.poll();
+
+            for(int dir=0; dir<4; dir++){
+                int nx = cur[0] + dx[dir];
+                int ny = cur[1] + dy[dir];
+
+                if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+                if(board[nx][ny] == 0 || dis[nx][ny] != 0) continue;
+
+                dis[nx][ny] = dis[cur[0]][cur[1]] + 1;
+                queue.add(new int[]{nx, ny});
+            }
+        }
+
+        System.out.println(dis[n-1][m-1]);
     }
-  }
-
-  public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    StringTokenizer st = new StringTokenizer(br.readLine());
-
-    int n = Integer.parseInt(st.nextToken());
-    int m = Integer.parseInt(st.nextToken());
-    for(int i=0; i<n; i++){
-      String tmp = br.readLine();
-      for(int j=0; j<m; j++){
-        board[i][j] = Integer.parseInt(String.valueOf(tmp.charAt(j)));
-      }
-    }
-
-    Queue<Pair> Q = new LinkedList<>();
-    Q.add(new Pair(0,0));
-    dis[0][0] = 1;
-
-    while(!Q.isEmpty()){
-      Pair cur = Q.peek(); Q.poll();
-
-      for(int i=0; i<4; i++){
-        int nxtX = cur.x + dx[i];
-        int nxtY = cur.y + dy[i];
-
-        if(nxtX < 0 || nxtY < 0 || nxtX > n || nxtY > m) continue;
-        if(board[nxtX][nxtY] == 0 || dis[nxtX][nxtY] != 0) continue;
-
-        Q.add(new Pair(nxtX, nxtY));
-        dis[nxtX][nxtY] = dis[cur.x][cur.y] + 1;
-      }
-    }
-
-    System.out.println(dis[n-1][m-1]);
-  }
 }

@@ -11,15 +11,15 @@ int main(void){
   int n, m;
   cin >> n >> m;
 
-  for(int i=1;i<=n;i++){
-    cin >> num[i];
-    d[i] = d[i-1] + num[i];
-  }
+  for(int i=1; i<=n; i++) cin >> num[i];
 
-  while(m-- > 0){
+  d[0] = 0; d[1] = num[1];
+  for(int i=2; i<=n; i++) d[i] = d[i-1] + num[i];
+
+  while(m--){
     int i, j;
     cin >> i >> j;
 
-    cout << d[j] - d[i-1] << '\n'; 
+    cout << d[j] - d[i-1] << '\n';
   }
 }

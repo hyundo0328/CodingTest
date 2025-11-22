@@ -1,29 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isPrime(int n){
-  if(n==1) return false;
-  for(int j=2;j*j<=n;j++){
-    if(n%j == 0){
-      return false;
-    }
-  }
-
-  return true;
-}
-
 int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
-  
-  int m, n;
-  cin >> m >> n;
 
-  for(int i=m; i<=n; i++){
+  int n, m;
+  cin >> n >> m;
+
+  for(int num = n; num <= m; num++){
+    if(num == 1) continue;
+    
     bool flag = false;
-    flag = isPrime(i);
+    for(int i=2; i*i <=num; i++){
+      if(num % i == 0){
+        flag = true;
+        break;
+      }
+    }
 
-    if(flag) cout << i << '\n';
+    if(!flag) cout << num << '\n';
   }
 
   return 0;

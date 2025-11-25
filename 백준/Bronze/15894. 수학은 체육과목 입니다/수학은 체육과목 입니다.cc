@@ -8,6 +8,5 @@ int main(){
   long long n;
   cin >> n;
 
-  long long ans = 3*n + 1 + (n-1);
-  cout << ans;
+  cout << 4*n;
 }

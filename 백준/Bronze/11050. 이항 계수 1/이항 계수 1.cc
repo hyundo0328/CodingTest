@@ -5,15 +5,17 @@ int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int n, k, ans = 1;
+  int n, k;
   cin >> n >> k;
+  
+  if(k == 0) {
+    cout << 1;
+    return 0;
+  }
 
-  for(int i=n; i>n-k; i--){
-    ans *= i;
-  }
-  for(int i=1; i<=k; i++){
-    ans /= i;
-  }
+  int ans = 1;
+  for(int num = n; num >= n-k+1; num--) ans *= num;
+  for(int num = k; num >= 1; num--) ans /= num;
 
   cout << ans;
 }

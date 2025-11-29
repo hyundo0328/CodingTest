@@ -6,34 +6,30 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    int n = Integer.parseInt(br.readLine());
-    StringTokenizer st = new StringTokenizer(br.readLine());
-    int x = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[n];
 
-    int[] arr = new int[n];
-    for(int i=0; i<n; i++){
-      arr[i] = Integer.parseInt(st.nextToken());
-    }
-    Arrays.sort(arr);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for(int i=0; i<n; i++) arr[i] = Integer.parseInt(st.nextToken());
+        Arrays.sort(arr);
 
-    int count = 0;
-    int frontIndex = 0;
-    int behindIndex = n-1;
-    while(frontIndex < behindIndex){
-      int sum = arr[frontIndex] + arr[behindIndex];
-      if(sum == x){
-        count ++;
-        behindIndex--;
-      } else if (sum < x){
-        frontIndex++;
-      } else if (sum > x){
-        behindIndex--;
-      }
+        int num = Integer.parseInt(br.readLine());
+        int start = 0, end = n-1;
+
+        int count = 0;
+        while(start < end){
+            if(arr[start] + arr[end] < num) start++;
+            else if(arr[start] + arr[end] > num) end--;
+            else if(arr[start] + arr[end] == num){
+                count++;
+                start++;
+            }
+        }
+
+        System.out.println(count);
     }
 
-    System.out.println(count);
-  }
 }

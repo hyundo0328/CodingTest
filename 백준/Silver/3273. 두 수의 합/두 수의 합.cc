@@ -1,29 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	int n;
-	cin >> n;
+	int arr[100002];
+	int n; cin >> n;
 
-	vector<int>v1(n);
-	for (auto& i : v1)
-		cin >> i;
-	
-  int x;
-	cin >> x;
-	
-  int cnt = 0;
-  vector<int>v2(x,0);
-	for (int i = 0; i < v1.size(); i++) {
-		if (x > v1[i] && v2[x - v1[i]]) // x > v1[i] 조건에 유의합시다! 런타임에러가 날 수 있어요
-			cnt++;
-		else if (x > v1[i])
-			v2[v1[i]] = 1;
+	for(int i=0; i<n; i++) cin >> arr[i];
+	sort(arr, arr+n);
+
+	int num; cin >> num;
+
+	int st = 0, end = n-1;
+
+	int count = 0;
+	while(st < end){
+		if(arr[st] + arr[end] < num) st++;
+		else if(arr[st] + arr[end] > num) end--;
+		else if(arr[st] + arr[end] == num){
+			count++;
+			st++;
+		}
 	}
-  
-	cout << cnt;
+
+	cout << count;
 }

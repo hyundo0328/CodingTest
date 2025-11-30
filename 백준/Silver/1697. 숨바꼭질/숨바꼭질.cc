@@ -1,30 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dis[200002];
-int n, k;
+int dis[200004];
 
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  fill(dis, dis+200001,-1);
-
+  int n, k;
   cin >> n >> k;
+  fill(dis, dis+200003, -1);
+
+  queue<int> q;
+  q.push(n);
   dis[n] = 0;
-  queue<int> Q;
-  Q.push(n);
 
   while(dis[k] == -1){
-    auto cur = Q.front();
-    Q.pop();
+    int cur = q.front(); q.pop();
 
-    for(int move : {cur-1, cur+1, 2*cur}){
-      if(dis[move] != -1) continue;
-      if(move < 0 || move > 100000) continue;
-      dis[move] = dis[cur] + 1;
-      Q.push(move);
-    }  
+    for(int nx:{cur+1, cur-1, 2*cur}){
+      if(nx < 0 || nx > 100000) continue;
+      if(dis[nx] != -1) continue;
+
+      dis[nx] = dis[cur] + 1;
+      q.push(nx);
+    }
   }
 
   cout << dis[k];

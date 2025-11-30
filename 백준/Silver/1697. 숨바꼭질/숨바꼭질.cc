@@ -15,7 +15,7 @@ int main(){
   q.push(n);
   dis[n] = 0;
 
-  while(dis[k] == -1){
+  while(!q.empty()){
     int cur = q.front(); q.pop();
 
     for(int nx:{cur+1, cur-1, 2*cur}){

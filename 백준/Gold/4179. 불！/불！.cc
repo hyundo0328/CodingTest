@@ -1,72 +1,69 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string board[1001];
-int disJ[1001][1001];
-int disF[1001][1001];
-
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};
+char board[1002][1002];
+int disJ[1002][1002];
+int disF[1002][1002];
+int r, c;
 
-int main(){
+int main(void){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int m, n;
-  cin >> n >> m;
+  cin >> r >> c;
+  queue<pair<int, int>> qj;
+  queue<pair<int, int>> qf;
 
-  queue<pair<int,int>> Q_J;
-  queue<pair<int,int>> Q_F;
-
-  for(int i = 0; i < n; i++){
-    fill(disJ[i], disJ[i]+m, -1);
-    fill(disF[i], disF[i]+m, -1);    
-  }
-
-  for(int i=0;i<n;i++){
+  for(int i=0; i<r; i++){
     cin >> board[i];
-    for(int j=0;j<m;j++){
+    fill(disJ[i], disJ[i]+c, -1);
+    fill(disF[i], disF[i]+c, -1);
+    for(int j=0; j<c; j++){
       if(board[i][j] == 'J'){
         disJ[i][j] = 0;
-        Q_J.push({i,j});
-      } else if (board[i][j] == 'F'){
+        qj.push({i,j});
+      }
+
+      if(board[i][j] == 'F'){
         disF[i][j] = 0;
-        Q_F.push({i,j});
+        qf.push({i,j});
       }
     }
   }
 
-  while(!Q_F.empty()){
-    pair<int,int> cur = Q_F.front(); Q_F.pop();
-    for(int k=0;k<4;k++){
-      int nextX = cur.first + dx[k];
-      int nextY = cur.second + dy[k];
+  while(!qf.empty()){
+    auto cur = qf.front(); qf.pop();
 
-      if(nextX < 0 || nextY < 0 || nextX >= n || nextY >= m) continue;
-      if(disF[nextX][nextY] >= 0) continue;
-      if(board[nextX][nextY] == '#') continue;
+    for(int dir=0; dir<4; dir++){
+      int nx = cur.first + dx[dir];
+      int ny = cur.second + dy[dir];
 
-      disF[nextX][nextY] = disF[cur.first][cur.second]+1;
-      Q_F.push({nextX, nextY});
+      if(nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
+      if(board[nx][ny] == '#' || disF[nx][ny] >= 0) continue;
+
+      disF[nx][ny] = disF[cur.first][cur.second] + 1;
+      qf.push({nx,ny});
     }
   }
 
-  while(!Q_J.empty()){
-    pair<int,int> cur = Q_J.front(); Q_J.pop();
-    for(int k=0;k<4;k++){
-      int nextX = cur.first + dx[k];
-      int nextY = cur.second + dy[k];
+  while(!qj.empty()){
+    auto cur = qj.front(); qj.pop();
 
-      if(nextX < 0 || nextY < 0 || nextX >= n || nextY >= m) {
-        cout << disJ[cur.first][cur.second]+1;
+    for(int dir=0; dir<4; dir++){
+      int nx = cur.first + dx[dir];
+      int ny = cur.second + dy[dir];
+
+      if(nx < 0 || ny < 0 || nx >= r || ny >= c){
+        cout << disJ[cur.first][cur.second] + 1;
         return 0;
       }
-      if(disJ[cur.first][cur.second]+1 >= disF[nextX][nextY] && disF[nextX][nextY] != -1) continue;
-      if(disJ[nextX][nextY] >= 0) continue;
-      if(board[nextX][nextY] == '#') continue;
+      if(board[nx][ny] == '#' || disJ[nx][ny] >= 0) continue;
+      if(disF[nx][ny] != -1 && disJ[cur.first][cur.second] + 1 >= disF[nx][ny]) continue;
 
-      disJ[nextX][nextY] = disJ[cur.first][cur.second]+1;
-      Q_J.push({nextX, nextY});
+      disJ[nx][ny] = disJ[cur.first][cur.second] + 1;
+      qj.push({nx,ny});
     }
   }
 

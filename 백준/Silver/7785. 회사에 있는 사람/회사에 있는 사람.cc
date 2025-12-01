@@ -5,21 +5,18 @@ int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int n;
-  cin >> n;
-
-  unordered_set<string> us;
-  for(int i=0; i<n; i++){
+  int n; cin >> n;
+  set<string> set;
+  while(n--){
     string name, log;
     cin >> name >> log;
-
-    if(log == "enter") us.insert(name);
-    else us.erase(name);
+    if(log == "enter") set.insert(name);
+    else set.erase(name);
   }
-  
 
-  vector<string> ans(us.begin(), us.end());
-  sort(ans.begin(), ans.end(), greater<string>());
-  
-  for(auto x : ans) cout << x << '\n';
+  auto it = set.end();
+  while(it != set.begin()){
+    advance(it, -1);
+    cout << *it << '\n';
+  }
 }

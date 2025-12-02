@@ -1,24 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+vector<int> vec;
+
 int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int n, m;
-  cin >> n;
+  int n; cin >> n;
+  while(n--){
+    int tmp; cin >> tmp;
 
-  int arr[500001];
-
-  for(int i=0;i<n;i++){
-    cin >> arr[i];
+    vec.push_back(tmp);
   }
-  sort(arr,arr+n);
+  sort(vec.begin(), vec.end());
 
-  cin >> m;
-  for(int j=0;j<m;j++){
-    int tmp;
-    cin >> tmp;
-    cout << binary_search(arr,arr+n,tmp) << ' ';
+  int m; cin >> m;
+  while(m--){
+    int tmp; cin >> tmp;
+
+    if(binary_search(vec.begin(), vec.end(), tmp)) cout << 1 << ' ';
+    else cout << 0 << ' ';
   }
 }

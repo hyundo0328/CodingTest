@@ -1,26 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m;
-
-unordered_map<string, string> password;
-
 int main(void){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
+  int n, m;
   cin >> n >> m;
 
-  string net, pw;
-  while(n-- > 0){
-    cin >> net >> pw;
+  unordered_map<string, string> hash;
+  while(n--){
+    string link, password;
+    cin >> link >> password;
 
-    password[net] = pw;
+    hash[link] = password;
   }
 
-  while(m-- > 0){
-    cin >> net;
+  while(m--){
+    string link;
+    cin >> link;
 
-    cout << password[net] << '\n';
+    cout << hash[link] << '\n';
   }
 }

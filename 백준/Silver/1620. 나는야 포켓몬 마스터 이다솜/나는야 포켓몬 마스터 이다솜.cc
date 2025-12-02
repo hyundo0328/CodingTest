@@ -1,27 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-unordered_map<string, int> s2i;
-string i2s[100005];
+unordered_map<string, int> dogam;
+string arr[100005];
 
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
   int n, m;
   cin >> n >> m;
-  for(int i = 1; i <= n; i++){
-    cin >> i2s[i];
-    s2i[i2s[i]] = i;
+
+  for(int i=1; i<=n; i++){
+    cin >> arr[i];
+
+    dogam.insert({arr[i], i});
   }
 
   while(m--){
-    string tmp;
-    cin >> tmp;
+    string query; cin >> query;
 
-    if(isdigit(tmp[0]))
-      cout << i2s[stoi(tmp)] << '\n';
-    else
-      cout << s2i[tmp] << '\n';
+    // if(isdigit(query[0]))
+    if('1' <= query.at(0) && query.at(0) <= '9'){
+      cout << arr[stoi(query)] << '\n';
+    } else {
+      cout << dogam[query] << '\n';
+    }
   }
 }

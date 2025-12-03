@@ -1,19 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char board[101][101];
-int vis[101][101];
-
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+char board[102][102];
+bool vis[102][102];
 int n;
 
-int dx[4] = { 1,0,-1,0 };
-int dy[4] = { 0,1,0,-1 }; 
+void clear(){
+  for(int i=0; i<n; i++) fill(vis[i], vis[i]+n, false);
+}
 
-void bfs(int i, int j) {
+void bfs(int x, int y){
   queue<pair<int, int>> q;
-  q.push({i, j});
-  vis[i][j] = true;
-  
+  q.push({x, y});
+
   while(!q.empty()){
     auto cur = q.front(); q.pop();
 
@@ -21,51 +22,52 @@ void bfs(int i, int j) {
       int nx = cur.first + dx[dir];
       int ny = cur.second + dy[dir];
 
-      if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-      if (vis[nx][ny] == 1 || board[i][j] != board[nx][ny]) continue;
+      if(nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+      if(board[x][y] != board[nx][ny] || vis[nx][ny]) continue;
 
-      vis[nx][ny] = 1;
-      q.push({ nx,ny });
+      vis[nx][ny] = true;
+      q.push({nx, ny});
     }
   }
 }
 
 int area(){
-  int count = 0;
+  int cnt = 0;
   for(int i=0; i<n; i++){
     for(int j=0; j<n; j++){
       if(vis[i][j]) continue;
 
-      count++;
+      cnt++;
+      vis[i][j] = true;
       bfs(i, j);
     }
   }
 
-  return count;
+  return cnt;
 }
 
-int main(void) {
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
   cin >> n;
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
       cin >> board[i][j];
     }
-  }
-  int not_g = area();
+  }  
 
-  for(int i = 0; i < n; i++) fill(vis[i], vis[i]+n, false);
+  // 적녹색약 아닌 사람
+  clear();
+  cout << area() << " ";
 
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      if (board[i][j] == 'G') board[i][j] = 'R';
+  // 적녹색약인 사람
+  clear();
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(board[i][j] == 'G') board[i][j] = 'R';
     }
   }
+  cout << area();
 
-  int is_g = area();
-  cout << not_g << " " << is_g;
-  
-  return 0;
 }

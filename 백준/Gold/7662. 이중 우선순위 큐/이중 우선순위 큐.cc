@@ -1,37 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int t, k;
-  cin >> t;
-  
-  while(t-- > 0){
+  int t; cin >> t;
+  while(t--){
+    int k; cin >> k;
+
     multiset<int> ms;
-    cin >> k;
-    while(k-- > 0){
-      char iord;
-      int num;
-      cin >> iord >> num;
-      if(iord == 'I'){
-        ms.insert(num);
-      } else if(iord == 'D') {
-        set<int>::iterator max = ms.end();
-        set<int>::iterator min = ms.begin();
-        if(ms.size() == 0) continue;
-        if(num == 1){
-          ms.erase(prev(ms.end()));
-        } else {
-          ms.erase(ms.begin());
+    while(k--){
+      char query; int num;
+      cin >> query >> num;
+
+      if(query == 'I') ms.insert(num);
+      if(query == 'D'){
+        if(!ms.empty()){
+          if(num == 1) ms.erase(prev(ms.end()));
+          else ms.erase(ms.begin());
         }
       }
     }
-    if(ms.size() == 0) {
-      cout << "EMPTY" << '\n';
-    } else {
-      cout << *prev(ms.end()) << ' ' << *ms.begin() << '\n';
-    }
+    
+    if(ms.empty()) cout << "EMPTY\n";
+    else cout << *prev(ms.end()) << " " << *ms.begin() << '\n';
   }
 }

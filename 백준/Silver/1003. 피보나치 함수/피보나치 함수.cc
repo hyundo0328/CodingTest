@@ -1,25 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int t;
-int fibonacci[42][2];
+long long d[42][2];
 
 int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  fibonacci[0][0] = 1; fibonacci[0][1] = 0;
-  fibonacci[1][0] = 0; fibonacci[1][1] = 1;
+  int t; cin >> t;
+
+  d[0][0] = 1; d[0][1] = 0;
+  d[1][0] = 0; d[1][1] = 1;
   
-  for(int i=2;i<=40;i++){
-    fibonacci[i][0] = fibonacci[i-1][0] + fibonacci[i-2][0];
-    fibonacci[i][1] = fibonacci[i-1][1] + fibonacci[i-2][1];
+  for(int i=2; i<=40; i++){
+    d[i][0] = d[i-1][0] + d[i-2][0];
+    d[i][1] = d[i-1][1] + d[i-2][1];
   }
 
-  cin >> t;
-  while(t-- > 0){
-    int n;
-    cin >> n;
-    cout << fibonacci[n][0] << ' ' << fibonacci[n][1] << '\n';
+  while(t--){
+    int num; cin >> num;
+    
+    cout << d[num][0] << " " << d[num][1] << "\n";
   }
 }

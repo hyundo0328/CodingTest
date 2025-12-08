@@ -5,19 +5,11 @@ int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int n;
-  cin >> n;
+  int n; cin >> n;
+  int a[n];
 
-  vector<int> vec;
+  for(int i=0; i<n; i++) cin >> a[i];
+  sort(a, a+n);
 
-  int num;
-  for(int i=0;i<n;i++){
-    cin >> num;
-    vec.push_back(num);
-  }
-  sort(vec.begin(),vec.end());
-
-  for(int number:vec){
-    cout << number << '\n';
-  }
+  for(int i=0; i<n; i++) cout << a[i] << '\n';
 }

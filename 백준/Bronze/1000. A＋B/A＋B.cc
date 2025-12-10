@@ -1,10 +1,11 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
 int main(){
-    int a, b;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
     
-    scanf("%d %d",&a, &b);
-    printf("%d", a+b);
-    
-    return 0;
+    int x, y;
+    cin >> x >> y;
+    cout << x + y;
 }

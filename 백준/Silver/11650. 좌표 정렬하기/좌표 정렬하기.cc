@@ -6,15 +6,13 @@ int main(){
   cin.tie(0);
 
   int n; cin >> n;
+  pair<int,int> x[n];
 
-  vector<pair<int, int>> vec;
-
-  for(int i=0;i<n;i++){
-    int x, y;
-    cin >> x >> y;
-    vec.push_back({x, y});
-  }
-  sort(vec.begin(),vec.end());
-
-  for(auto point:vec) cout << point.first << ' ' << point.second << '\n';
+  for (auto& s : x) cin >> s.first >> s.second;
+  sort(x, x+n, [&](pair<int,int> a, pair<int,int> b) {
+    if(a.first == b.first) return a.second < b.second;
+    return a.first < b.first;
+  });
+  
+  for (auto p : x) cout << p.first << ' ' << p.second << '\n';
 }

@@ -1,20 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-pair<int,int> p[100004];
-
-int main(void) {
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
-  
-  int n;
-  cin >> n;
-  for (int i = 0; i < n; i++){
-    cin >> p[i].second >> p[i].first;
-  }
-  sort(p, p + n); // pair은 first가 먼저 정렬됨
 
-  for (int i = 0; i < n; i++){
-    cout << p[i].second << ' ' << p[i].first << '\n';
-  }
+  int n; cin >> n;
+
+  pair<int, int> x[n];
+  for (auto& s : x) cin >> s.first >> s.second;
+
+  sort(x, x+n, [&](pair<int,int> a, pair<int,int> b){
+    if(a.second == b.second) return a.first < b.first;
+    return a.second < b.second;
+  });
+
+  for (auto point:x) cout << point.first << " " << point.second << '\n';
 }

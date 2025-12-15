@@ -1,31 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool cmp(string& a, string& b){
-  int a_size = a.length();
-  int b_size = b.length();
-  if(a_size != b_size) return a_size < b_size;
-  return a < b;
-}
-
-int main(void) {
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
-  
-  int n;
-  cin >> n;
 
-  string str;
   vector<string> vec;
-  
-  for(int i=0;i<n;i++){
-    cin >> str;
-    vec.push_back(str);
-  }
-  sort(vec.begin(),vec.end(), cmp);
-  vec.erase(unique(vec.begin(), vec.end()), vec.end());
 
-  for(auto word:vec){
-    cout << word << '\n';
+  int n; cin >> n;
+  while(n--){
+    string tmp; cin >> tmp;
+    vec.push_back(tmp);
   }
+
+  sort(vec.begin(), vec.end(), [&](string a, string b){
+    if(a.size() != b.size()) return a.size() < b.size(); // 1순위: 길이가 짧은 것부터
+
+    return a < b; // 2순위: 사전 순으로
+  });
+  vec.erase(unique(vec.begin(), vec.end()), vec.end()); // 중복 제거
+
+  for(string word:vec) cout << word << '\n';
 }

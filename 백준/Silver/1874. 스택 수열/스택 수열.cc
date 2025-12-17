@@ -4,28 +4,31 @@ using namespace std;
 int main(void) {
   ios::sync_with_stdio(0);
   cin.tie(0);
-    
-  int n;
-  cin >> n;
-  stack<int> S;
-    
-  int cnt = 1;
-  string ans;
-    
-  while (n--) {
-    int t;
-    cin >> t;
-    while (cnt <= t) {
-      S.push(cnt++);
-      ans += "+\n";
+
+  int n; cin >> n;
+  
+  int num = 1;
+  bool flag = false;
+  stack<int> s;
+
+  string st;
+  while(n--){
+    int tmp; cin >> tmp;
+
+    while(num <= tmp){
+      s.push(num);
+      num++;
+      st.append("+\n");
     }
-    if (S.top() != t) {
-      cout << "NO\n";
-      return 0;
+
+    if(s.top() == tmp){
+      s.pop();
+      st.append("-\n");
+    } else {
+      flag = true;
     }
-    S.pop();
-    ans += "-\n";
   }
-    
-  cout << ans;
+
+  if(!flag) cout << st;
+  else cout << "NO";
 }

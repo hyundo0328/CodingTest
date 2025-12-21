@@ -1,31 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dist[1000002];
+int building[1000002];
+long long times[1000002];
+int f, s, g, u, d;
+vector<int> vec;
+queue<int> q;
 
-int main(void) {
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int f, s, g, u, d;
+  // f: 건물 층수
+  // s: 현재 층수
+  // g: 목표 층수
+  // u: 올라가는 층수
+  // d: 내려가는 층수
   cin >> f >> s >> g >> u >> d;
-  fill(dist+1, dist+f+1, -1);
-  
-  queue<int> q;
-  dist[s] = 0;
   q.push(s);
+  vec.push_back(u);
+  vec.push_back(-d);
+  memset(times, -1, sizeof(times));
+  times[s] = 0;
+
   while(!q.empty()){
-    int cur = q.front();
-    q.pop();
-      
-    for(auto nxt : {cur + u, cur - d}){
-      if(nxt > f || nxt <= 0 || dist[nxt] != -1) continue;
+    auto cur = q.front(); q.pop();
+
+    for(int dir:vec){
+      int nxt = cur + dir;
         
-      dist[nxt] = dist[cur] + 1;
+      if(nxt < 1 || nxt > f) continue;
+      if(times[nxt] != -1) continue;
+
+      times[nxt] = times[cur] + 1;
       q.push(nxt);
     }
   }
 
-  if(dist[g] == -1) cout << "use the stairs";
-  else cout << dist[g];
+  if(times[g] == -1) cout << "use the stairs";
+  else cout << times[g];
 }

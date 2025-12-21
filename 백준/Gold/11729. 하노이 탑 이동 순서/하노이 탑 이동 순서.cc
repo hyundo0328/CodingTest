@@ -1,34 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<pair<int,int>> answer;
-int cnt = 0;
-
-void hanoi(int n, int from, int to, int aux) {
-    if (n == 1) {
-      cnt++;
-      answer.push_back({from, to});
-      // cout << from << " " << to << '\n';
-      return;
-    }
-
-    hanoi(n - 1, from, aux, to);
-    cnt++;
-    answer.push_back({from, to});
-    // cout << from << " " << to << '\n';
-    hanoi(n - 1, aux, to, from);
+void hanoi(int n, int from, int tmp, int to) {
+	if (n == 1) {
+		cout << from << " " << to << "\n";
+	} else {
+		hanoi(n - 1, from, to, tmp);
+		cout << from << " " << to << "\n";
+		hanoi(n - 1, tmp, from, to);
+	}
 }
 
-int main() {
-    int n;
-    cin >> n;
-    
-    hanoi(n, 1, 3, 2);
+int main(void){
+  ios::sync_with_stdio(0);
+  cin.tie(0);
 
-    cout << cnt << '\n';
-    for(auto ans:answer){
-      cout << ans.first << " " << ans.second << '\n';
-    }
-    
-    return 0;
+  int k; cin >> k;
+
+  cout << int(pow(2, k)) - 1 << "\n";
+  hanoi(k, 1, 2, 3);
 }

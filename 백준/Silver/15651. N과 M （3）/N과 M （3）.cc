@@ -2,25 +2,24 @@
 using namespace std;
 
 int n, m;
-int arr[9];
+int arr[8];
+bool isUsed[8];
 
-void func(int num){
-  if(num == m){
-    for(int i=0; i<m; i++){
-      cout << arr[i] << ' ';
-    }
-
+void func(int k){
+  if(k == m){
+    for(int i=0; i<m; i++) cout << arr[i] << ' ';
     cout << '\n';
+
     return;
   }
 
   for(int i=1; i<=n; i++){
-    arr[num] = i;
-    func(num+1);
+    arr[k] = i;
+    func(k+1);
   }
 }
 
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 

@@ -2,39 +2,32 @@
 using namespace std;
 
 int n, m;
-int arr[9];
-bool isUsed[9];
+int arr[10];
+bool isUsed[10];
 
-void func(int num){
-  if(num == m){
-    for(int i=0; i<m; i++){
-      cout << arr[i] << ' ';
-    }
-
+void func(int k){
+  if(k == m){
+    for(int i=0; i<m; i++) cout << arr[i] << ' ';
     cout << '\n';
+
     return;
   }
 
   int start;
-  if(num != 0) {
-    start = arr[num-1] + 1;
-  } else {
-    start = 1;
-  }
+  if(k == 0) start = 1;
+  else start = arr[k-1] + 1;
 
   for(int i=start; i<=n; i++){
     if(!isUsed[i]){
-      arr[num] = i;
+      arr[k] = i;
       isUsed[i] = true;
-
-      func(num+1);
-
+      func(k+1);
       isUsed[i] = false;
     }
   }
 }
 
-int main(void){
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
 
